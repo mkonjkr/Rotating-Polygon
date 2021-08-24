@@ -3,6 +3,7 @@ import { Polygon } from "./polygon.js";
 
 class App {
     constructor() {
+
         //set canvas
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
@@ -33,23 +34,24 @@ class App {
         
         this.polygon = new Polygon(
             // middle of width
-            this.stageWidth / 2,
-            // middle of Height
-            this.stageHeight + (this.stageHeight / 4),
+            this.canvas.width / 2,
+            // Height
+            this.canvas.height /2,
             // size of Polygon
-            this.stageHeight / 1.5,
+            this.stageHeight / 2
+            ,
             // number of sides
-            15
+            10
         );
-
     }
 
     animate() {
         window.requestAnimationFrame(this.animate.bind(this));
 
         this.ctx.clearRect(0, 0, this.stageWidth, this.stageHeight);
-
-        this.moveX *= 0.92;
+        
+        // Speed of slide
+        this.moveX *= 0.82;
         this.polygon.animate(this.ctx, this.moveX);
     }
 
@@ -62,6 +64,7 @@ class App {
     onMove(e) {
         if (this.isDown) {
             this.moveX = e.clientX - this.offsetX;
+            // save previos x position
             this.offsetX = e.clientX;
         }
     }
